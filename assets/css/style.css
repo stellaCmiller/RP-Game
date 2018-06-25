@@ -1,0 +1,9 @@
+img:hover {
+    opacity: .8;
+    transition: .5;
+    border: 3px black solid;
+}
+
+.fighter-box{
+    background-color: aqua;
+}

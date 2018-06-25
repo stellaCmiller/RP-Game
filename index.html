@@ -15,24 +15,53 @@
     <!--Custom styles-->
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="container-fluid">
         <h1>RPG Game!</h1>
 
-        <h2>Choose your fighter:</h2>
+        <div class="instructions">
+            <p>Welcome to pixel RPG! The game will begin once you choose your fighter below. Defeat all of the enemies to win!! </p>
+        </div>
 
+        <!--Choose your fighter area-->
+        <h2>Choose your fighter:</h2>
         <div class="row">
-            <div class="col-md-4">
-                <img src="assets/images/picsum1.jpg">
+            <div class="col-md-3 fighter-box">
+                <img class="img-fluid fighter" src="assets/images/warrior.png" value=0>
             </div>
-            <div class="col-md-4">
-                <img src="assets/images/picsum2.jpg">
+            <div class="col-md-3 fighter-box">
+                <img class="img-fluid fighter" src="assets/images/picsum2.jpg" value=1>
             </div>
-            <div class="col-md-4">
-                <img src="assets/images/picsum3.jpg">
+            <div class="col-md-3 fighter-box">
+                <img class="img-fluid fighter" src="assets/images/wizard.png" value=2>
+            </div>
+            <div class="col-md-3 fighter-box">
+                <img class="img-fluid fighter" src="assets/images/picsum3.jpg" value=3>
+            </div>
+        </div>
+        <div class="row" id="fighter-stats"></div>
+
+        <br>
+
+        <!--Defender area-->
+        <h2>Defenders: </h2>
+        <div class="row">
+            <div class="col-3">
+                
+            </div>
+            <div class="col-3">
+        
+            </div>
+            <div class="col-3">
+                
             </div>
         </div>
     </div>
+
+    <script src="assets/js/game2.js"></script>
 </body>
 </html>
