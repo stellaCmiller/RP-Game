@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,58 +11,74 @@
     <link rel="stylesheet" href="assets/css/reset.css">
 
     <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
 
     <!--Custom styles-->
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!--JQuery-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
 
 </head>
+
 <body>
     <div class="container-fluid">
-        <h1>RPG Game!</h1>
 
-        <div class="instructions">
-            <p>Welcome to pixel RPG! The game will begin once you choose your fighter below. Defeat all of the enemies to win!! </p>
-        </div>
+        <header>
+            <h1>RPG Game!</h1>
+            <div class="instructions">
+                <p>Welcome to pixel RPG! The game will begin once you choose your fighter below. Defeat all of the enemies to win!!</p>
+            </div>
+        </header>
 
         <!--Choose your fighter area-->
         <h2>Choose your fighter:</h2>
-        <div class="row">
-            <div class="col-md-3 fighter-box">
-                <img class="img-fluid fighter" src="assets/images/warrior.png" value=0>
+            <div id="fighter-area" class="row">
+                <div class="col-md-3 fighter-box warrior">
+                    <img class="img-fluid fighter" src="assets/images/warrior.png" value=1>
+                    <h3>Health:
+                        <span>150</span>
+                    </h3>
+                </div>
+                <div class="col-md-3 fighter-box knight">
+                    <img class="img-fluid fighter" src="assets/images/knight.png" value=2>
+                    <h3>Health:
+                        <span>200</span>
+                    </h3>
+                </div>
+                <div class="col-md-3 fighter-box mage">
+                    <img class="img-fluid fighter" src="assets/images/wizard.png" value=3>
+                    <h3>Health:
+                        <span>100</span>
+                    </h3>
+                </div>
+                <div class="col-md-3 fighter-box ninja">
+                    <img class="img-fluid fighter" src="assets/images/ninja.png" value=4>
+                    <h3>Health:
+                        <span>125</span>
+                    </h3>
+                </div>
             </div>
-            <div class="col-md-3 fighter-box">
-                <img class="img-fluid fighter" src="assets/images/knight.png" value=1>
-            </div>
-            <div class="col-md-3 fighter-box">
-                <img class="img-fluid fighter" src="assets/images/wizard.png" value=2>
-            </div>
-            <div class="col-md-3 fighter-box">
-                <img class="img-fluid fighter" src="assets/images/ninja.png" value=3>
-            </div>
-        </div>
+
         <div class="row" id="fighter-stats"></div>
 
-        <br>
+
+        <hr>
 
         <!--Defender area-->
         <h2>Defenders: </h2>
-        <div class="row">
-            <div class="col-3">
-                
-            </div>
-            <div class="col-3">
-        
-            </div>
-            <div class="col-3">
-                
-            </div>
-        </div>
+        <div id="enemyArea" class="row"></div>
+        <br>
+        <br>
+
+        <!--Reset Button-->
+        <button id="reset">RESET</button>
+
     </div>
 
     <script src="assets/js/game2.js"></script>
 </body>
+
 </html>
