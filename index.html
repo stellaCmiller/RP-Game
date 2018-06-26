@@ -29,7 +29,7 @@
         <header>
             <h1>RPG Game!</h1>
             <div class="instructions">
-                <p>Welcome to pixel RPG! The game will begin once you choose your fighter below. Defeat all of the enemies to win!!</p>
+                <p>Welcome to pixel RPG! The game will begin once you choose your fighter below. After you have selected a fighter, click on a defender to begin your battle with that defender. Defeat them all to win!</p>
             </div>
         </header>
 
@@ -39,32 +39,40 @@
                 <div class="col-md-3 fighter-box warrior">
                     <img class="img-fluid fighter" src="assets/images/warrior.png" value=1>
                     <h3>Health:
-                        <span>150</span>
+                        <span class="hp">150</span>
                     </h3>
                 </div>
                 <div class="col-md-3 fighter-box knight">
                     <img class="img-fluid fighter" src="assets/images/knight.png" value=2>
                     <h3>Health:
-                        <span>200</span>
+                        <span class="hp">200</span>
                     </h3>
                 </div>
                 <div class="col-md-3 fighter-box mage">
                     <img class="img-fluid fighter" src="assets/images/wizard.png" value=3>
                     <h3>Health:
-                        <span>100</span>
+                        <span class="hp">100</span>
                     </h3>
                 </div>
                 <div class="col-md-3 fighter-box ninja">
                     <img class="img-fluid fighter" src="assets/images/ninja.png" value=4>
                     <h3>Health:
-                        <span>125</span>
+                        <span class="hp">125</span>
                     </h3>
+                </div>
+                <div id="action-log">
+                    <p><strong>Action log</strong></p><br>
+                    <p id="action-display">Choose a defender to attack!</p>
+                    <button>Attack</button>
                 </div>
             </div>
 
         <div class="row" id="fighter-stats"></div>
 
 
+        <hr>
+        <h2>Current Enemy: </h2>
+        <div id="currentEnemy" class="row"></div>
         <hr>
 
         <!--Defender area-->

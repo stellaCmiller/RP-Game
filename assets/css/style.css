@@ -5,6 +5,16 @@ body, html {
 header {
     text-align: center;
 }
+
+#action-log {
+    position: absolute;
+    text-align: center;
+    left: 30%;
+    display: none;
+    height: 200px;
+    width: 300px;
+    border: 4px red solid;
+}
 img:hover {
     opacity: .8;
     transition: .5;
