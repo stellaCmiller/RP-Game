@@ -79,7 +79,7 @@ function chooseEnemy(fighter) {
 
 /*Puts the fighters not selected by the player into the defenders area */
 function boardSetUp(fighter) {
-    while (defenderSelect) {
+    if (defenderSelect) {
         $(".fighter-box").each(function () {
             if (!$(this).hasClass(`${fighter.name}`)) {
                 $(this).addClass("defender");
@@ -125,7 +125,7 @@ function play(fighter, enemy) {
 /*Resets the entire game area and resets all fighter stats back to their original*/
 $("#reset").click(function () {
     $(".fighter-box").removeClass("defender target chosenAttacker");
-    $(".fighter-box").css("display", "flex");
+    $(".fighter-box").css("display", "block");
     $("#fighter-area").append($(".fighter-box"));
     $("#action-log").css("display", "none");
     $("#action-display").empty();
