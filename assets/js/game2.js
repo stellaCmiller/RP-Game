@@ -22,77 +22,64 @@ var ninja = new Fighter("ninja", 4, 8, 125, 4);
 var fighterArray = [warrior, knight, mage, ninja];
 
 //vARiaBleS
-var preSelect = true; //Ensures that the click handler for the fighters only operates at first click
-var defenderSelect = true;
-var enemySelect = false;
-var enemies = [];
+var newGame = true; //basically "new game"
+var chooseEnemy = false;
+var theHero;
+var theEnemy;
 
 displayStatReset(); //called initially to display the correct stats
 
-function displayStatReset(){
-    $(".warrior .hp").text(warrior.baseHp);
-    $(".knight .hp").text(knight.baseHp);
-    $(".mage .hp").text(mage.baseHp);
-    $(".ninja .hp").text(ninja.baseHp);
-}
-
-
 //When a fighter is selected, the rest move down to the defender area
-$("document").ready(
-    $(".fighter-box").click(function () {
-        if (preSelect) {
-            $(this).addClass("chosenAttacker");
-            let fighterSelector = $(this).attr("value");
-            fighterArray.forEach(element => {
-                if (element.ID == fighterSelector) {
-                    boardSetUp(element);
-                }
-            });
-        }
-        preSelect = false;
-        defenderSelect = true;
-    })
-)
-
-//when a defender is selected, it moves up to the current enemy box
-function chooseEnemy(fighter) {
-    $(".defender").click(function () {
-        if (enemySelect){
-            var newEnemy;
-            $(this).appendTo("#currentEnemy");
-            $(this).addClass("target");
-            $("#action-display").text("Press the Attack button to deal some damage!");
-            $("#attack").css("display", "block");
-            let enemySelection = $(this).attr("value");
-            fighterArray.forEach(element => {
-                if (element.ID == enemySelection) {
-                    console.log(element);
-                    newEnemy = element;
-                }
-            });
-            enemySelect = false;
-            play(fighter, newEnemy);
-            
-        } 
-    })
-}
-
-/*Puts the fighters not selected by the player into the defenders area */
-function boardSetUp(fighter) {
-    if (defenderSelect) {
-        $(".fighter-box").each(function () {
-            if (!$(this).hasClass(`${fighter.name}`)) {
-                $(this).addClass("defender");
-                $("#enemyArea").append($(this));
+$(".fighter-box").click(function () {
+    if (newGame) {
+        $(this).addClass("chosenAttacker");
+        $("#action-log").css("display", "block");
+        $("#action-display").text("Choose a defender!");
+        let fighterSelection = $(this).attr("value");
+        fighterArray.forEach(element => {
+            if (element.ID == fighterSelection) {
+                console.log(element);
+                theHero = element;
             }
         })
-        $("#action-log").css("display", "block");
-        chooseEnemy(fighter);
-        defenderSelect = false;
-        enemySelect = true;
+        moveBuddies();
+        newGame = false;
+        chooseEnemy = true;
     }
+})
+
+function moveBuddies() {
+    $(".fighter-box").each(function () {
+        if (!$(this).hasClass("chosenAttacker")) {
+            $(this).addClass("defender");
+            $("#enemyArea").append($(this));
+        }
+    })
 }
 
+//when a defender is selected, it moves up to the current enemy box
+$("body").on("click", ".defender", function () {
+    if (chooseEnemy) {
+        // var newEnemy;
+        $(this).appendTo("#currentEnemy");
+        $(this).addClass("target");
+        $("#action-display").text("Press the Attack button to deal some damage!");
+        $("#attack").css("display", "block");
+        let enemySelection = $(this).attr("value");
+        fighterArray.forEach(element => {
+            if (element.ID == enemySelection) {
+                console.log(element);
+                theEnemy = element;
+            }
+        });
+        chooseEnemy = false;
+        play(theHero, theEnemy);
+    }
+})
+
+
+
+/*Damage calculations and win conditions*/
 function play(fighter, enemy) {
     $("#attack").click(function () {
         if (fighter.hp > 0 && enemy.hp > 0) {
@@ -108,15 +95,15 @@ function play(fighter, enemy) {
             if (enemy.hp <= 0) {
                 $(".target").css("display", "none");
                 $("#action-display").text("Choose a new enemy!");
-                if (!$("#enemyArea").is(":empty")){
-                    enemySelect = true;
-                    chooseEnemy(fighter);
+                if (!$("#enemyArea").is(":empty")) {
+                    chooseEnemy = true;
+                    $("#action-display").text("Excellent! Choose a new defender!")
                 } else {
                     alert("YOU WIN");
                 }
             }
-            if (fighter.hp <= 0){
-                $("action-display").text("GAME OVER (press the reset button to try again");
+            if (fighter.hp <= 0) {
+                $("action-display").text("GAME OVER (press the reset button to try again)");
             }
         }
     })
@@ -134,9 +121,17 @@ $("#reset").click(function () {
         element.ap = element.baseAp;
     })
     displayStatReset();
-    preSelect = true;
+    newGame = true;
+    enemySelect = false;
 })
 
+//Resets the HP display of each fighter on the DOM
+function displayStatReset() {
+    $(".warrior .hp").text(warrior.baseHp);
+    $(".knight .hp").text(knight.baseHp);
+    $(".mage .hp").text(mage.baseHp);
+    $(".ninja .hp").text(ninja.baseHp);
+}
 
 
 
