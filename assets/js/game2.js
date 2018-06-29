@@ -15,19 +15,19 @@ function Fighter(name, baseAp, cap, baseHp, ID) {
 }
 
 //Fighter objects are created with different stats
-var warrior = new Fighter("warrior", 6, 3, 150, 1);
-var knight = new Fighter("knight", 2, 4, 200, 2);
-var mage = new Fighter("mage", 7, 2, 100, 3);
-var ninja = new Fighter("ninja", 4, 8, 125, 4);
+var warrior = new Fighter("warrior", 6, 6, 150, 1);
+var knight = new Fighter("knight", 2, 8, 200, 2);
+var mage = new Fighter("mage", 7, 4, 100, 3);
+var ninja = new Fighter("ninja", 4, 12, 125, 4);
 var fighterArray = [warrior, knight, mage, ninja];
 
 //vARiaBleS
-var newGame = true; //basically "new game"
+var newGame = true;
 var chooseEnemy = false;
 var theHero;
 var theEnemy;
 
-displayStatReset(); //called initially to display the correct stats
+displayStatReset(); //called initially to display the initial stats
 
 //When a fighter is selected, the rest move down to the defender area
 $(".fighter-box").click(function () {
@@ -38,7 +38,6 @@ $(".fighter-box").click(function () {
         let fighterSelection = $(this).attr("value");
         fighterArray.forEach(element => {
             if (element.ID == fighterSelection) {
-                console.log(element);
                 theHero = element;
             }
         })
@@ -60,7 +59,6 @@ function moveBuddies() {
 //when a defender is selected, it moves up to the current enemy box
 $("body").on("click", ".defender", function () {
     if (chooseEnemy) {
-        // var newEnemy;
         $(this).appendTo("#currentEnemy");
         $(this).addClass("target");
         $("#action-display").text("Press the Attack button to deal some damage!");
@@ -68,46 +66,38 @@ $("body").on("click", ".defender", function () {
         let enemySelection = $(this).attr("value");
         fighterArray.forEach(element => {
             if (element.ID == enemySelection) {
-                console.log(element);
                 theEnemy = element;
             }
         });
         chooseEnemy = false;
-        play(theHero, theEnemy);
     }
 })
 
-
-
 /*Damage calculations and win conditions*/
-function play(fighter, enemy) {
-    $("#attack").click(function () {
-        if (fighter.hp > 0 && enemy.hp > 0) {
-            enemy.hp = enemy.hp - fighter.ap;
-            console.log("Current Enemy HP:" + enemy.hp) //test function
-            $(".target .hp").text(enemy.hp);
-            fighter.hp = fighter.hp - enemy.cap;
-            $(".chosenAttacker .hp").text(fighter.hp);
-            console.log("current fighter hp: " + fighter.hp); //test function
-            $("#action-display").text("You did " + fighter.ap + " damage and took " + enemy.cap + " damage");
-            fighter.attackUp();
-            console.log(fighter.ap); //test function
-            if (enemy.hp <= 0) {
-                $(".target").css("display", "none");
-                $("#action-display").text("Choose a new enemy!");
-                if (!$("#enemyArea").is(":empty")) {
-                    chooseEnemy = true;
-                    $("#action-display").text("Excellent! Choose a new defender!")
-                } else {
-                    alert("YOU WIN");
-                }
+$("#attack").click(function () {
+    if (theHero.hp > 0 && theEnemy.hp > 0) {
+        theEnemy.hp = theEnemy.hp - theHero.ap;
+        $(".target .hp").text(theEnemy.hp);
+        theHero.hp = theHero.hp - theEnemy.cap;
+        $(".chosenAttacker .hp").text(theHero.hp);
+        $("#action-display").text("You did " + theHero.ap + " damage and took " + theEnemy.cap + " damage");
+        theHero.attackUp();
+        console.log(theHero.hp);
+    }
+    if (theHero.hp <= 0) {
+        $("#action-display").text("GAME OVER (press the reset button to try again)");
+    } else if (theEnemy.hp <= 0) {
+            $(".target").css("display", "none");
+            if (!$("#enemyArea").is(":empty")) {
+                chooseEnemy = true;
+                $("#action-display").text("Excellent! Choose a new defender!")
+            } else {
+                $("#action-display").text("Press the RESET button to play again!");
+                alert("YOU WIN");
+                $("#attack").css("display", "none");
             }
-            if (fighter.hp <= 0) {
-                $("action-display").text("GAME OVER (press the reset button to try again)");
-            }
-        }
-    })
-}
+        } 
+})
 
 /*Resets the entire game area and resets all fighter stats back to their original*/
 $("#reset").click(function () {
@@ -115,6 +105,7 @@ $("#reset").click(function () {
     $(".fighter-box").css("display", "block");
     $("#fighter-area").append($(".fighter-box"));
     $("#action-log").css("display", "none");
+    $("#attack").css("display", "none");
     $("#action-display").empty();
     fighterArray.forEach(element => {
         element.hp = element.baseHp;
@@ -122,7 +113,7 @@ $("#reset").click(function () {
     })
     displayStatReset();
     newGame = true;
-    enemySelect = false;
+    chooseEnemy = false;
 })
 
 //Resets the HP display of each fighter on the DOM
