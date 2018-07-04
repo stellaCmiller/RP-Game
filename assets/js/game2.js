@@ -1,5 +1,3 @@
-/*Actual homework specifications */
-
 //AP = AttackPower, CAP = CounterAttackPower, HP = HealthPoints
 function Fighter(name, baseAp, cap, baseHp, ID) {
     this.name = name;
@@ -82,9 +80,10 @@ $("#attack").click(function () {
         $(".chosenAttacker .hp").text(theHero.hp);
         $("#action-display").text("You did " + theHero.ap + " damage and took " + theEnemy.cap + " damage");
         theHero.attackUp();
-        console.log(theHero.hp);
     }
-    if (theHero.hp <= 0) {
+    if (theHero.hp <= 0 & theEnemy.hp <=0) {
+        $("#action-display").text("You KO'd each other! Press the reset button to play again.");
+    } else if(theHero.hp < 0){
         $("#action-display").text("GAME OVER (press the reset button to try again)");
     } else if (theEnemy.hp <= 0) {
             $(".target").css("display", "none");
@@ -92,8 +91,7 @@ $("#attack").click(function () {
                 chooseEnemy = true;
                 $("#action-display").text("Excellent! Choose a new defender!")
             } else {
-                $("#action-display").text("Press the RESET button to play again!");
-                alert("YOU WIN");
+                $("#action-display").text("CONGRATS!!! You WIN! Press the reset button to play again :D");
                 $("#attack").css("display", "none");
             }
         } 

@@ -1,9 +1,25 @@
-body, html {
-    width: 100vw;
+body {
+    max-width: 100vw;
+}
+
+.background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: .4;
+}
+
+#bg {
+    max-width: 100vw;
 }
 
 header {
     text-align: center;
+}
+
+h1, h2 {
+    color: black;
+    display: inline-block;
 }
 
 #action-log {
@@ -21,7 +37,7 @@ header {
     margin: auto;
 }
 
-img:hover {
+.fighter:hover {
     opacity: .8;
     transition: .5;
     border: 3px black solid;
